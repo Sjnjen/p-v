@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Dollar Hunt - Subscribe & Win R1000</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-dark: #001a00;
+            --primary-green: #003300;
+            --accent-green: #00cc44;
+            --text-light: #e6ffe6;
+            --text-dim: #b3ffb3;
+            --glow-color: rgba(0, 204, 68, 0.7);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-light);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Ambient Animations */
+        .particle {
+            position: fixed;
+            background: var(--accent-green);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.3;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            50% {
+                transform: translateY(-100px) translateX(100px);
+            }
+            100% {
+                transform: translateY(0) translateX(0);
+            }
+        }
+
+        .glow-circle {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, var(--glow-color) 0%, transparent 70%);
+            z-index: -1;
+            opacity: 0.1;
+            animation: pulse 8s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.1;
+            }
+            100% {
+                transform: scale(1.5);
+                opacity: 0.2;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            text-align: center;
+            padding: 30px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-green);
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px var(--glow-color);
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 5px var(--glow-color);
+            }
+            to {
+                text-shadow: 0 0 20px var(--glow-color), 0 0 30px var(--glow-color);
+            }
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+        }
+
+        /* Countdown Section */
+        .countdown-section {
+            background: linear-gradient(135deg, var(--primary-green), #002200);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--accent-green);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .countdown-section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            z-index: -1;
+            background: linear-gradient(45deg, var(--accent-green), #00ff88, var(--accent-green));
+            background-size: 400%;
+            border-radius: 16px;
+            opacity: 0;
+            transition: 0.5s;
+            animation: animate 20s linear infinite;
+        }
+
+        .countdown-section:hover::before {
+            opacity: 0.3;
+        }
+
+        @keyframes animate {
+            0% {
+                background-position: 0 0;
+            }
+            50% {
+                background-position: 400% 0;
+            }
+            100% {
+                background-position: 0 0;
+            }
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            color: var(--accent-green);
+            text-align: center;
+        }
+
+        .countdown-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-box {
+            background-color: rgba(0, 20, 0, 0.7);
+            border: 1px solid var(--accent-green);
+            border-radius: 10px;
+            padding: 20px;
+            min-width: 100px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .countdown-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--glow-color);
+        }
+
+        .countdown-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--accent-green);
+            margin-bottom: 5px;
+        }
+
+        .countdown-label {
+            font-size: 1rem;
+            color: var(--text-dim);
+        }
+
+        /* Subscribe Section */
+        .subscribe-section {
+            background: linear-gradient(135deg, #001a00, #000d00);
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--accent-green);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .prize-highlight {
+            font-size: 2rem;
+            color: var(--accent-green);
+            margin: 20px 0;
+            animation: pulse-text 2s infinite;
+        }
+
+        @keyframes pulse-text {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .youtube-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ff0000;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-decoration: none;
+            margin: 20px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.3);
+            border: none;
+            cursor: pointer;
+        }
+
+        .youtube-btn:hover {
+            background-color: #cc0000;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
+        }
+
+        .youtube-btn i {
+            margin-right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .terms {
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            margin-top: 20px;
+        }
+
+        /* Image Slider */
+        .slider-container {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--accent-green);
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 400px;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slide-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 20, 0, 0.9));
+            padding: 20px;
+            color: white;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .slider-btn {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 15px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .slider-btn:hover {
+            background: rgba(0, 204, 68, 0.7);
+        }
+
+        /* QR Code Section */
+        .qr-section {
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .qr-code {
+            background-color: white;
+            padding: 20px;
+            display: inline-block;
+            border-radius: 10px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .qr-code:hover {
+            transform: scale(1.05);
+        }
+
+        .qr-instruction {
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-top: 10px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            margin-top: 50px;
+            border-top: 1px solid rgba(0, 204, 68, 0.2);
+            color: var(--text-dim);
+            font-size: 0.9rem;
+        }
+
+        .social-links {
+            margin: 20px 0;
+        }
+
+        .social-links a {
+            color: var(--text-dim);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-green);
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .countdown-box {
+                min-width: 70px;
+                padding: 15px;
+            }
+
+            .countdown-value {
+                font-size: 1.8rem;
+            }
+
+            .countdown-label {
+                font-size: 0.8rem;
+            }
+
+            .prize-highlight {
+                font-size: 1.5rem;
+            }
+
+            .youtube-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+
+            .slider-container {
+                height: 300px;
+            }
+
+            .slide-caption {
+                padding: 10px;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px;
+            }
+
+            .countdown-box {
+                min-width: 60px;
+                padding: 10px;
+            }
+
+            .countdown-value {
+                font-size: 1.5rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .prize-highlight {
+                font-size: 1.2rem;
+            }
+
+            .slider-container {
+                height: 200px;
+            }
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background-color: var(--accent-green);
+            opacity: 0;
+            z-index: 9999;
+            animation: confetti-fall 5s linear forwards;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Ambient Background Elements -->
+    <div class="glow-circle" style="top: 10%; left: 10%;"></div>
+    <div class="glow-circle" style="bottom: 10%; right: 10%;"></div>
+
+    <div class="container">
+        <header>
+            <div class="logo">THE DOLLAR HUNT</div>
+            <div class="tagline">Subscribe for a chance to win R1000 and more exciting giveaways!</div>
+        </header>
+
+        <!-- Countdown Section -->
+        <section class="countdown-section">
+            <h2 class="section-title">GIVEAWAY COUNTDOWN</h2>
+            <div class="countdown-container">
+                <div class="countdown-box">
+                    <div class="countdown-value" id="days">00</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Subscribe Section -->
+        <section class="subscribe-section">
+            <h2 class="section-title">JOIN OUR GIVEAWAY</h2>
+            <p>Subscribe to our YouTube channel for a chance to win:</p>
+            <div class="prize-highlight">R1000 CASH PRIZE!</div>
+            <p>Plus entry into all future giveaways and exclusive content</p>
+            
+            <a href="https://youtube.com/@thedollarhunt?si=QgKbPe90c8nyxpUO" target="_blank" class="youtube-btn">
+                <i class="fab fa-youtube"></i> Subscribe Now
+            </a>
+            
+            <p class="terms">By subscribing, you agree to be entered into our giveaway. Winner will be announced on our channel.</p>
+        </section>
+
+        <!-- Image Slider -->
+        <div class="slider-container">
+            <div class="slider">
+                <div class="slide">
+                    <img src="1d0e15d2-6205-4120-bd77-37ece92c7a92.png" alt="Giveaway Prize">
+                    <div class="slide-caption">
+                        <h3>R1000 Cash Prize</h3>
+                        <p>One lucky subscriber will win R1000 in our monthly giveaway</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="IMG_20250616_213850.png" alt="Future Giveaways">
+                    <div class="slide-caption">
+                        <h3>More Giveaways Coming</h3>
+                        <p>Stay subscribed for even bigger prizes in future events</p>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <button class="slider-btn" id="prev-slide"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn" id="next-slide"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+
+        <!-- QR Code Section -->
+        <section class="qr-section">
+            <h2 class="section-title">SCAN TO SUBSCRIBE</h2>
+            <div class="qr-code">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://youtube.com/@thedollarhunt?si=QgKbPe90c8nyxpUO" alt="YouTube Channel QR Code">
+            </div>
+            <p class="qr-instruction">Use your phone's camera to scan the QR code and subscribe instantly</p>
+        </section>
+    </div>
+
+    <footer>
+        <div class="social-links">
+            <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="#" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
+        <p>&copy; 2023 The Dollar Hunt. All rights reserved.</p>
+        <p>This giveaway is not affiliated with YouTube.</p>
+    </footer>
+
+    <script>
+        // Create ambient particles
+        function createParticles() {
+            const particleCount = 30;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size between 2px and 6px
+                const size = Math.random() * 4 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                
+                // Random animation duration between 10s and 20s
+                const duration = Math.random() * 10 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                
+                // Random delay
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                
+                document.body.appendChild(particle);
+            }
+        }
+
+        // Countdown Timer
+        function updateCountdown() {
+            // Set the date we're counting down to (7 days from now)
+            const countDownDate = new Date();
+            countDownDate.setDate(countDownDate.getDate() + 40);
+            
+            // Update the countdown every 1 second
+            const x = setInterval(function() {
+                // Get today's date and time
+                const now = new Date().getTime();
+                
+                // Find the distance between now and the countdown date
+                const distance = countDownDate - now;
+                
+                // Time calculations for days, hours, minutes and seconds
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                // Display the result
+                document.getElementById("days").textContent = days.toString().padStart(2, '0');
+                document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+                document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+                document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+                
+                // If the countdown is finished, clear interval and show celebration
+                if (distance < 0) {
+                    clearInterval(x);
+                    document.getElementById("days").textContent = "00";
+                    document.getElementById("hours").textContent = "00";
+                    document.getElementById("minutes").textContent = "00";
+                    document.getElementById("seconds").textContent = "00";
+                    
+                    // Show celebration
+                    celebrate();
+                }
+            }, 1000);
+        }
+
+        // Image Slider
+        function setupSlider() {
+            const slider = document.querySelector('.slider');
+            const slides = document.querySelectorAll('.slide');
+            const prevBtn = document.getElementById('prev-slide');
+            const nextBtn = document.getElementById('next-slide');
+            
+            let currentSlide = 0;
+            const slideCount = slides.length;
+            
+            // Auto slide every 5 seconds
+            let slideInterval = setInterval(nextSlide, 5000);
+            
+            function goToSlide(n) {
+                slider.style.transform = `translateX(-${n * 100}%)`;
+                currentSlide = n;
+                
+                // Reset auto slide timer
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+            
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slideCount;
+                goToSlide(currentSlide);
+            }
+            
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+                goToSlide(currentSlide);
+            }
+            
+            nextBtn.addEventListener('click', nextSlide);
+            prevBtn.addEventListener('click', prevSlide);
+            
+            // Pause on hover
+            slider.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            slider.addEventListener('mouseleave', () => {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, 5000);
+            });
+        }
+
+        // Celebration effect
+        function celebrate() {
+            // Create confetti
+            for (let i = 0; i < 100; i++) {
+                createConfetti();
+            }
+            
+            // Show celebration message
+            const subscribeSection = document.querySelector('.subscribe-section');
+            const celebration = document.createElement('div');
+            celebration.innerHTML = `
+                <h2 class="section-title" style="color: #ffcc00; animation: glow 1s infinite alternate;">GIVEAWAY TIME!</h2>
+                <p style="font-size: 1.2rem; margin: 20px 0;">Check our YouTube channel for the winner announcement!</p>
+            `;
+            subscribeSection.insertBefore(celebration, subscribeSection.firstChild);
+        }
+
+        function createConfetti() {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            
+            // Random properties
+            const size = Math.random() * 10 + 5;
+            confetti.style.width = `${size}px`;
+            confetti.style.height = `${size}px`;
+            
+            // Random shape (square or circle)
+            if (Math.random() > 0.5) {
+                confetti.style.borderRadius = '50%';
+            }
+            
+            // Random color
+            const colors = ['#00cc44', '#00ff88', '#00aa33', '#88ff00', '#00ff00'];
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            // Random position
+            confetti.style.left = `${Math.random() * 100}vw`;
+            
+            // Random animation duration
+            const duration = Math.random() * 3 + 2;
+            confetti.style.animationDuration = `${duration}s`;
+            
+            document.body.appendChild(confetti);
+            
+            // Remove confetti after animation
+            setTimeout(() => {
+                confetti.remove();
+            }, duration * 1000);
+        }
+
+        // Initialize everything when the page loads
+        window.onload = function() {
+            createParticles();
+            updateCountdown();
+            setupSlider();
+            
+            // Add hover effect to countdown boxes
+            const countdownBoxes = document.querySelectorAll('.countdown-box');
+            countdownBoxes.forEach(box => {
+                box.addEventListener('mouseenter', function() {
+                    this.style.boxShadow = `0 0 20px ${getComputedStyle(document.documentElement).getPropertyValue('--glow-color')}`;
+                });
+                
+                box.addEventListener('mouseleave', function() {
+                    this.style.boxShadow = '0 5px 15px rgba(0, 0, 0, 0.3)';
+                });
+            });
+            
+            // Add click celebration for YouTube button
+            const youtubeBtn = document.querySelector('.youtube-btn');
+            youtubeBtn.addEventListener('click', function() {
+                setTimeout(() => {
+                    celebrate();
+                }, 1000);
+            });
+        };
+    </script>
+</body>
+</html>
